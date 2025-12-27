@@ -1,12 +1,12 @@
 # README (Portfolio-Ready)
 
-## BookFlow – Multi-Tenant Booking SaaS
+BookFlow – Multi-Tenant Booking SaaS
 
-## BookFlow is a production-grade appointment and payments platform built with Next.js and NestJS to demonstrate senior-level system design, frontend architecture, and backend scalability.
+BookFlow is a production-grade appointment and payments platform built with Next.js and NestJS to demonstrate senior-level system design, frontend architecture, and backend scalability.
 
-## Why This Project
+Why This Project
 
-## This project mirrors real-world SaaS challenges: multi-tenancy, scheduling complexity, payments, and performance. It was built to showcase how I design, build, and ship maintainable systems.
+This project mirrors real-world SaaS challenges: multi-tenancy, scheduling complexity, payments, and performance. It was built to showcase how I design, build, and ship maintainable systems.
 
 ## Tech Stack
 - Next.js 15 (App Router)
