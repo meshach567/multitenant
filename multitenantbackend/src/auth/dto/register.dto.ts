@@ -1,0 +1,18 @@
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+
+export class RegisterDto {
+  @IsEmail()
+  email!: string;
+
+  @MinLength(8)
+  password!: string;
+
+  @IsNotEmpty()
+  businessName!: string;
+
+  @IsNotEmpty()
+  timezone!: string;
+
+  @IsNotEmpty()
+  currency!: string;
+}
