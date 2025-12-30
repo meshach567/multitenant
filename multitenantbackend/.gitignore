@@ -41,6 +41,7 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.example
 
 # temp directory
 .temp
@@ -56,3 +57,11 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
+
+# Prisma config files
+prism.config.d.tasks
+prisma.config
+
+# typescript build file
+tsconfig.build.json
+tsconfig.build.tsbuildinfo
