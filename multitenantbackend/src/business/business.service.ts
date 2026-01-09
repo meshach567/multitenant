@@ -7,8 +7,12 @@ import slugify from 'slugify';
 export class BusinessService {
   constructor(private prisma: PrismaService) {}
 
-  async create(ownerId: string, dto: CreateBusinessDto): Promise<unknown> {
+  async create(ownerId: string, dto: CreateBusinessDto) {
     const slug = slugify(dto.name, { lower: true });
+
+    if (!ownerId) {
+      throw new Error('Owner ID is required');
+    }
 
     return this.prisma.business.create({
       data: {
@@ -17,7 +21,7 @@ export class BusinessService {
         timezone: dto.timezone,
         currency: dto.currency,
         users: {
-          connect: { id: ownerId },
+          connect: [{ id: ownerId }], // <- wrap in array
         },
       },
     });
