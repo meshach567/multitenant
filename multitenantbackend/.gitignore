@@ -60,7 +60,6 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Prisma config files
 prism.config.d.ts
-prisma.config.js
 
 # typescript build file
 tsconfig.build
