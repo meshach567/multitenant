@@ -13,6 +13,6 @@ export class UsersController {
 
   @Get('me')
   getProfile(@CurrentUser() user: CurrentUserPayload) {
-    return this.usersService.findById(user.userId);
+    return this.usersService.findById(user.sub);
   }
 }
