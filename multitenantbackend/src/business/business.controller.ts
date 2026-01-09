@@ -6,13 +6,15 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AuthenticatedUser } from '../auth/types/authenticated-user.type';
+import { TenantGuard } from '../common/guards/tenant.guard';
+import { Role } from '../auth/roles.enum';
 
 @Controller('business')
 @UseGuards(JwtAuthGuard)
 export class BusinessController {
   constructor(private readonly businessesService: BusinessService) {}
 
-  @Roles('BUSINESS_OWNER')
+  @Roles(Role.BUSINESS_OWNER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('business')
   createBusiness(
@@ -22,8 +24,9 @@ export class BusinessController {
     return this.businessesService.create(user.userId, dto);
   }
 
+  @UseGuards(JwtAuthGuard, TenantGuard)
   @Get('me')
-  getMyBusiness(@CurrentUser() user: AuthenticatedUser) {
+  getBusiness(@CurrentUser() user: AuthenticatedUser) {
     return this.businessesService.findMyBusiness(user.businessId!);
   }
 }
