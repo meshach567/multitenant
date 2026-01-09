@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -14,7 +14,7 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserRole {
+enum Role {
   ADMIN
   BUSINESS_OWNER
   STAFF
@@ -22,13 +22,64 @@ enum UserRole {
 }
 
 model User {
-  id            String   @id  @default(uuid())
-  email         String   @unique
-  passwordHash  String
-  role          UserRole
-  businessId    String?
-  business      Business? @relation(fields: [businessId], references: [id])
-  createdAt     DateTime  @default(now())
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(BUSINESS_OWNER)
+  businessId   String?
+  business     Business? @relation(fields: [businessId], references: [id])
+
+  emailVerified Boolean @default(false)
+
+  emailVerification EmailVerification?
+  passwordReset     PasswordReset?
+
+  createdAt DateTime @default(now())
+}
+
+model EmailVerification {
+  id        String   @id @default(uuid())
+  otp       String
+  expiresAt DateTime
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model StaffInvitation {
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  role      Role     @default(STAFF)
+  businessId String
+
+  expiresAt DateTime
+  acceptedAt DateTime?
+
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  userId    String
+  businessId String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+
+model PasswordReset {
+  id        String   @id @default(uuid())
+  token     String
+  expiresAt DateTime
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }
 
 model Business {
